@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Image Geotager</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #form {
+        width: 200px;
+      }
+      #dropzone {
+        position: relative;
+        border: 2px dashed #ccc;
+        border-radius: 1rem;
+        width: 100%;
+        height: 200px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      #dropzone:hover {
+        border: 2px dashed #0af;
+      }
+      #dropzone.dragover {
+        background-color: #ccc;
+      }
+      #dropzone.dropped {
+        border: 2px dashed #0af;
+      }
+      #status {
+        position: absolute;
+        top: 55%;
+        color: #0af;
+      }
+      #status.error {
+        color: red;
+      }
+      #file {
+        display: none;
+      }
+      #upload {
+        margin-top: 1rem;
+        width: 100%;
+        padding: 0.5rem;
+        background: #0af;
+        border: none;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        color: white;
+        font-weight: bold;
+      }
+      #upload:hover {
+        background: #1bf;
+      }
+      .input-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+      }
+      .coords-input {
+        width: 5rem;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        border: 1px solid #ccc;
+        font-size: 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form" autocomplete="off">
+      <div id="dropzone">
+        <p>Drop or Click</p>
+        <p id="status"></p>
+      </div>
+      <div class="input-wrapper">
+        <label for="longitude">Latitude:</label>
+        <input
+          type="number"
+          id="latitude"
+          name="latitude"
+          class="coords-input"
+          min="-90"
+          max="90"
+          required
+        />
+      </div>
+      <div class="input-wrapper">
+        <label for="longitude">Longitude:</label>
+        <input
+          type="number"
+          id="longitude"
+          name="longitude"
+          class="coords-input"
+          min="-180"
+          max="180"
+          required
+        />
+      </div>
+
+      <div class="input-wrapper">
+        <span>Variance:</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" class="sr-only peer" />
+          <div
+            class="
+              w-11
+              h-6
+              bg-gray-200
+              peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300
+              rounded-full
+              peer
+              peer-checked:after:translate-x-full
+              peer-checked:after:border-white
+              after:content-['']
+              after:absolute
+              after:top-[2px]
+              after:left-[2px]
+              after:bg-white
+              after:border-gray-300
+              after:border
+              after:rounded-full
+              after:h-5
+              after:w-5
+              after:transition-all
+              peer-checked:bg-blue-500
+            "
+          ></div>
+        </label>
+      </div>
+
+      <input type="file" id="file" name="image" multiple />
+      <input type="submit" value="Upload" id="upload" />
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+    <script src="upload.js"></script>
+  </body>
+</html>
