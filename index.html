@@ -9,33 +9,7 @@
       * {
         box-sizing: border-box;
       }
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-      #form {
-        width: 200px;
-      }
-      #dropzone {
-        position: relative;
-        border: 2px dashed #ccc;
-        border-radius: 1rem;
-        width: 100%;
-        height: 200px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-      }
+
       #dropzone:hover {
         border: 2px dashed #0af;
       }
@@ -56,100 +30,145 @@
       #file {
         display: none;
       }
-      #upload {
-        margin-top: 1rem;
-        width: 100%;
-        padding: 0.5rem;
-        background: #0af;
-        border: none;
-        cursor: pointer;
-        border-radius: 0.25rem;
-        font-weight: 500;
-        color: white;
-        font-weight: bold;
-      }
-      #upload:hover {
-        background: #1bf;
-      }
-      .input-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 1rem;
-      }
-      .coords-input {
-        width: 5rem;
-        padding: 0.25rem;
-        border-radius: 0.25rem;
-        border: 1px solid #ccc;
-        font-size: 0.75rem;
-      }
     </style>
   </head>
-  <body>
-    <form id="form" autocomplete="off">
-      <div id="dropzone">
-        <p>Drop or Click</p>
-        <p id="status"></p>
-      </div>
-      <div class="input-wrapper">
-        <label for="longitude">Latitude:</label>
-        <input
-          type="number"
-          id="latitude"
-          name="latitude"
-          class="coords-input"
-          min="-90"
-          max="90"
-          required
-        />
-      </div>
-      <div class="input-wrapper">
-        <label for="longitude">Longitude:</label>
-        <input
-          type="number"
-          id="longitude"
-          name="longitude"
-          class="coords-input"
-          min="-180"
-          max="180"
-          required
-        />
-      </div>
-
-      <div class="input-wrapper">
-        <span>Variance:</span>
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" value="" class="sr-only peer" />
+  <body
+    class="flex flex-col items-center justify-center h-screen p-2 m-0 font-sans"
+  >
+    <form id="form" class="flex flex-col w-full max-w-lg" autocomplete="off">
+      <div class="flex gap-4">
+        <div class="flex flex-col w-1/2">
           <div
+            id="dropzone"
             class="
-              w-11
-              h-6
-              bg-gray-200
-              peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300
-              rounded-full
-              peer
-              peer-checked:after:translate-x-full
-              peer-checked:after:border-white
-              after:content-['']
-              after:absolute
-              after:top-[2px]
-              after:left-[2px]
-              after:bg-white
-              after:border-gray-300
-              after:border
-              after:rounded-full
-              after:h-5
-              after:w-5
-              after:transition-all
-              peer-checked:bg-blue-500
+              relative
+              flex flex-col
+              items-center
+              justify-center
+              w-full
+              h-48
+              border-2 border-dashed
+              rounded-lg
+              border-gray-300
+              cursor-pointer
             "
-          ></div>
-        </label>
+          >
+            <p>Drop or Click</p>
+            <p id="status" class="absolute top-1/2 text-blue-500"></p>
+          </div>
+
+          <div class="input-wrapper flex items-center justify-between mt-4">
+            <label for="location">Location:</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              class="w-24 p-1 text-xs border rounded border-gray-300"
+              placeholder="State"
+              required
+            />
+          </div>
+          <div class="input-wrapper flex items-center justify-between mt-4">
+            <label for="latitude">Latitude:</label>
+            <input
+              type="number"
+              id="latitude"
+              name="latitude"
+              class="w-24 p-1 text-xs border rounded border-gray-300"
+              min="-90"
+              max="90"
+              required
+            />
+          </div>
+          <div class="input-wrapper flex items-center justify-between mt-4">
+            <label for="longitude">Longitude:</label>
+            <input
+              type="number"
+              id="longitude"
+              name="longitude"
+              class="w-24 p-1 text-xs border rounded border-gray-300"
+              min="-180"
+              max="180"
+              required
+            />
+          </div>
+          <div class="input-wrapper flex items-center justify-between mt-4">
+            <span>Variance:</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" class="sr-only peer" />
+              <div
+                class="
+                  w-11
+                  h-6
+                  bg-gray-200
+                  peer-focus:outline-none
+                  peer-focus:ring-2
+                  peer-focus:ring-blue-300
+                  rounded-full
+                  peer
+                  peer-checked:after:translate-x-full
+                  peer-checked:after:border-white
+                  after:content-['']
+                  after:absolute
+                  after:top-[2px]
+                  after:left-[2px]
+                  after:bg-white
+                  after:border-gray-300
+                  after:border
+                  after:rounded-full
+                  after:h-5
+                  after:w-5
+                  after:transition-all
+                  peer-checked:bg-blue-500
+                "
+              ></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex flex-col w-1/2">
+          <div class="h-[60vh] overflow-y-auto">
+            <label>Keyword Groups:</label>
+            <div id="keywordGroups">
+              <!-- Keyword groups will be dynamically added here -->
+            </div>
+            <button
+              type="button"
+              id="addKeywordGroup"
+              class="
+                my-1
+                p-2
+                text-white text-xs
+                rounded-sm
+                bg-blue-400
+                hover:bg-blue-500
+              "
+            >
+              Add Group
+            </button>
+          </div>
+        </div>
       </div>
 
-      <input type="file" id="file" name="image" multiple />
-      <input type="submit" value="Upload" id="upload" />
+      <input type="file" id="file" name="image" class="hidden" multiple />
+      <button
+        type="submit"
+        value="Upload"
+        id="upload"
+        class="
+          w-full
+          mt-4
+          p-2
+          font-bold
+          text-white
+          bg-blue-400
+          rounded
+          cursor-pointer
+          hover:bg-blue-500
+        "
+      >
+        Submit
+      </button>
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
